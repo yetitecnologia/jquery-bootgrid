@@ -459,7 +459,7 @@ function renderPagination()
 
             renderPaginationItem.call(this, pagination, "first", "&laquo;", "first")
                 ._bgEnableAria(current > 1);
-            renderPaginationItem.call(this, pagination, "prev", "&lt;", "prev")
+            renderPaginationItem.call(this, pagination, "prev", "&lsaquo;", "prev")
                 ._bgEnableAria(current > 1);
 
             for (var i = 0; i < count; i++)
@@ -475,7 +475,7 @@ function renderPagination()
                     ._bgEnableAria(false)._bgSelectAria();
             }
 
-            renderPaginationItem.call(this, pagination, "next", "&gt;", "next")
+            renderPaginationItem.call(this, pagination, "next", "&rsaquo;", "next")
                 ._bgEnableAria(totalPages > current);
             renderPaginationItem.call(this, pagination, "last", "&raquo;", "last")
                 ._bgEnableAria(totalPages > current);
