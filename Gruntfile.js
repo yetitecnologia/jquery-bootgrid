@@ -1,6 +1,5 @@
 /*jshint node:true*/
-module.exports = function (grunt)
-{
+module.exports = function (grunt) {
     "use strict";
 
     /* Hint: Using grunt-strip-code to remove comments from the release file */
@@ -9,8 +8,8 @@ module.exports = function (grunt)
         pkg: grunt.file.readJSON('package.json'),
         fontawesome: 'fa',
         banner: '/*! <%= "\\r\\n * " + pkg.title %> v<%= pkg.version %> - <%= grunt.template.today("mm/dd/yyyy") + "\\r\\n" %>' +
-            ' * Copyright (c) 2014-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %> <%= (pkg.homepage ? "(" + pkg.homepage + ")" : "") + "\\r\\n" %>' +
-            ' * Licensed under <%= pkg.licenses[0].type + " " + pkg.licenses[0].url + "\\r\\n */\\r\\n" %>',
+            ' * Copyright © 2014-2015 Rafael J. Staib; Copyright © 2018-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %> <%= (pkg.homepage ? "(" + pkg.homepage + ")" : "") + "\\r\\n" %>' +
+            ' * Licensed under the <%= pkg.license + " license. See LICENSE.txt for more details." + "\\r\\n */\\r\\n" %>',
         folders: {
             dist: "dist",
             docs: "docs",
@@ -57,20 +56,17 @@ module.exports = function (grunt)
                     separator: '\r\n\r\n',
                     banner: '<%= banner %>;(function ($, window, undefined)\r\n{\r\n    /*jshint validthis: true */\r\n    "use strict";\r\n\r\n',
                     footer: '\r\n})(jQuery, window);',
-                    process: function(src, filepath)
-                    {
+                    process: function (src, filepath) {
                         var result = src.trim().replace(/(.+?\r\n)/gm, '    $1'),
                             end = [0, ""],
                             lastChar = result[result.length - 1];
 
-                        if (lastChar === ";")
-                        {
+                        if (lastChar === ";") {
                             end = (result[result.length - 2] === ")") ?
-                            (result[result.length - 2] === "}") ?
-                            [3, "    });"] : [2, ");"] : [2, "    };"];
+                                (result[result.length - 2] === "}") ?
+                                    [3, "    });"] : [2, ");"] : [2, "    };"];
                         }
-                        else if (lastChar === "}")
-                        {
+                        else if (lastChar === "}") {
                             end = [1, "    }"];
                         }
 
@@ -106,6 +102,7 @@ module.exports = function (grunt)
             default: {
                 options: {
                     'adjoining-classes': false,
+                    'order-alphabetical': false,
                     'important': false,
                     'outline-none': false,
                     'overqualified-elements': false
@@ -118,13 +115,14 @@ module.exports = function (grunt)
                 curly: true,
                 eqeqeq: true,
                 immed: true,
-                latedef: true,
+                latedef: 'nofunc',
                 newcap: true,
                 noarg: true,
                 sub: true,
                 undef: true,
                 eqnull: true,
                 browser: true,
+                reporterOutput: "",
                 globals: {
                     jQuery: true,
                     $: true,
@@ -210,7 +208,7 @@ module.exports = function (grunt)
                 files: [
                     {
                         flatten: true,
-                        expand: true, 
+                        expand: true,
                         src: ['<%= folders.dist %>/*.js', '<%= folders.dist %>/*.css'], dest: '/'
                     }
                 ]
@@ -247,8 +245,7 @@ module.exports = function (grunt)
     grunt.loadNpmTasks('grunt-nuget');
     grunt.loadNpmTasks('grunt-regex-replace');
 
-    grunt.registerMultiTask('version', 'sets version tag', function ()
-    {
+    grunt.registerMultiTask('version', 'sets version tag', function () {
         var pkg = grunt.file.readJSON(this.data.src);
         pkg["version"] = this.data.options.version;
         grunt.file.write(this.data.src, JSON.stringify(pkg, null, 4));

@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.3.3
+### Enhancements & Features
+- Update dependencies to 2018 versions, eliminating 72 vulnerabilities.
+- The old, unused copy of Modernizr in the demo has been removed.
+
+## 1.3.2
+### Bug fixes
+- Fix jQuery and Bootstrap versions in package.json, fix license info in package.json
+
+### Enhancements & Features
+- Use left and right single guillemets in pagination.
+- Migrated test suite to Qunit 2.8.0.
+
 ## 1.3.1
 
 ### Enhancements & Features
