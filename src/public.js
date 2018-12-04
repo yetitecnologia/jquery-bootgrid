@@ -249,6 +249,36 @@ Grid.defaults = {
             // default converter
             from: function (value) { return value; },
             to: function (value) { return value; }
+        },
+        timestamp: {
+            to: function(value) {
+                return (new Date((+value) * 1000)).toLocaleString(navigator.language, { timeZone: 'UTC' });
+            }
+        },
+        memsize: {
+            from: function (value) {
+                const modifiers = ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+
+                let ret = parseInt(value);
+                let modifier = value.slice(-1).toUpperCase();
+                for (let exponent = modifiers.length - 1; exponent >= 0; exponent--) {
+                    if (modifier === modifiers[exponent]) {
+                        ret *= Math.pow(1024, exponent);
+                        break;
+                    }
+                }
+                return ret;
+            },
+            to: function (value) {
+                const modifiers = ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+
+                for (let exponent = modifiers.length - 1; exponent >= 0; exponent--) {
+                    if (value >= (5 * Math.pow(1024, exponent))) {
+                        return parseInt(value / Math.pow(1024, exponent)) + modifiers[exponent];
+                    }
+                }
+                return parseInt(value) + '';
+            }
         }
     },
 
