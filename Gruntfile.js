@@ -126,7 +126,8 @@ module.exports = function (grunt) {
                 globals: {
                     jQuery: true,
                     $: true,
-                    console: true
+                    console: true,
+                    moment: true,
                 }
             },
             files: ['<%= folders.dist %>/<%= pkg.namespace %>.js'],

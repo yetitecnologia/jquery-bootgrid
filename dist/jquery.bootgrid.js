@@ -1210,10 +1210,13 @@ Grid.defaults = {
             to: function (value) { return value; }
         },
         datetime: {
-            // convert datetime type fields from unix timestamp to readable format
-            to: function(data) {
-                 return (new Date((parseInt(data)) * 1000)).toLocaleString(navigator.language, { timeZone: 'UTC' });
-            }
+           // convert datetime type fields from unix timestamp to readable format
+           from: function (value) {
+              return moment(parseInt(value)*1000);
+           },
+           to: function (value) {
+              return value.format("lll");
+           }
         },
         memsize: {
             from: function (value) {
