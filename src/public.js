@@ -128,7 +128,7 @@ Grid.defaults = {
          * @for searchSettings
          **/
         delay: 250,
-        
+
         /**
          * The characters to type before the search gets executed.
          *
@@ -249,7 +249,48 @@ Grid.defaults = {
             // default converter
             from: function (value) { return value; },
             to: function (value) { return value; }
+        },
+        datetime: {
+            // convert datetime type fields from unix timestamp to readable format
+            to: function(data) {
+                 return (new Date((parseInt(data)) * 1000)).toLocaleString(navigator.language, { timeZone: 'UTC' });
+            }
+        },
+        memsize: {
+            from: function (value) {
+                var modifiers = ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+
+                var ret = parseInt(value);
+                var modifier = value.slice(-1).toUpperCase();
+                for (var exponent = modifiers.length - 1; exponent >= 0; exponent--) {
+                    if (modifier === modifiers[exponent]) {
+                        ret *= Math.pow(1024, exponent);
+                        break;
+                    }
+                }
+                return ret;
+            },
+            to: function (value) {
+                var modifiers = ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+
+                for (var exponent = modifiers.length - 1; exponent >= 0; exponent--) {
+                    if (value >= (5 * Math.pow(1024, exponent))) {
+                        return parseInt(value / Math.pow(1024, exponent)) + modifiers[exponent];
+                    }
+                }
+                return parseInt(value) + '';
+            }
+        },
+        notprefixable: {
+            to: function (value) {
+                if (value.not) {
+                    return '<i class="fa fa-exclamation"></i> ' + value.val;
+                } else {
+                    return value.val;
+                }
+            }
         }
+
     },
 
     /**
@@ -376,7 +417,7 @@ Grid.defaults = {
          * @for statusMapping
          **/
         2: "warning",
-        
+
         /**
          * Specifies a dangerous or potentially negative action.
          *
@@ -560,7 +601,7 @@ Grid.prototype.remove = function(rowIds)
 };
 
 /**
- * Searches in all rows for a specific phrase (but only in visible cells). 
+ * Searches in all rows for a specific phrase (but only in visible cells).
  * The search filter will be reseted, if no argument is provided.
  *
  * @method search
@@ -705,7 +746,7 @@ Grid.prototype.deselect = function(rowIds)
 };
 
 /**
- * Sorts the rows by a given sort descriptor dictionary. 
+ * Sorts the rows by a given sort descriptor dictionary.
  * The sort filter will be reseted, if no argument is provided.
  *
  * @method sort
