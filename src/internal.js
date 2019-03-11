@@ -106,7 +106,7 @@ function loadColumns()
                 id: data.columnId,
                 identifier: that.identifier == null && data.identifier || false,
                 converter: that.options.converters[data.converter || data.type] || that.options.converters["string"],
-                text: $this.text(),
+                text: $this.html(),
                 align: data.align || "left",
                 headerAlign: data.headerAlign || "left",
                 cssClass: data.cssClass || "",
@@ -117,7 +117,7 @@ function loadColumns()
                 sortable: !(data.sortable === false), // default: true
                 visible: !(data.visible === false), // default: true
                 visibleInSelection: !(data.visibleInSelection === false), // default: true
-                width: ($.isNumeric(data.width)) ? data.width + "px" : 
+                width: ($.isNumeric(data.width)) ? data.width + "px" :
                     (typeof(data.width) === "string") ? data.width : null
             };
         that.columns.push(column);
@@ -380,7 +380,7 @@ function renderColumnSelection(actions)
                         .on("click" + namespace, selector, function (e)
                         {
                             e.stopPropagation();
-    
+
                             var $this = $(this),
                                 checkbox = $this.find(checkboxSelector);
                             if (!checkbox.prop("disabled"))
@@ -389,7 +389,7 @@ function renderColumnSelection(actions)
                                 var enable = that.columns.where(isVisible).length > 1;
                                 $this.parents(itemsSelector).find(selector + ":has(" + checkboxSelector + ":checked)")
                                     ._bgEnableAria(enable).find(checkboxSelector)._bgEnableField(enable);
-    
+
                                 that.element.find("tbody").empty(); // Fixes an column visualization bug
                                 renderTableHeader.call(that);
                                 loadData.call(that);

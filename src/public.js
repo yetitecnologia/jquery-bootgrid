@@ -243,7 +243,14 @@ Grid.defaults = {
     converters: {
         numeric: {
             from: function (value) { return +value; }, // converts from string to numeric
-            to: function (value) { return value + ""; } // converts from numeric to string
+            to: function (value) {
+                 // converts from numeric to string
+                if (value === undefined) {
+                    return "";
+                } else {
+                    return value + "";
+                }
+            }
         },
         string: {
             // default converter
