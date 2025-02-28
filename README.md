@@ -94,4 +94,4 @@ No instructions yet.
 Copyright © 2014-2015 Rafael J. Staib
 Copyright © 2018 Deciso B.V.
 
-Licensed under the [MIT license](https://github.com/opnsense/jquery-bootgrid/blob/master/LICENSE.txt).
+Licensed under the [MIT license](https://github.com/yetitecnologia/jquery-bootgrid/blob/master/LICENSE.txt).

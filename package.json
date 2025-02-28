@@ -16,13 +16,13 @@
             "url": "http://www.rafaelstaib.com"
         }
     ],
-    "bugs": "https://github.com/opnsense/jquery-bootgrid/issues",
+    "bugs": "https://github.com/yetitecnologia/jquery-bootgrid/issues",
     "scripts": {
         "test": "grunt"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/opnsense/jquery-bootgrid.git"
+        "url": "https://github.com/yetitecnologia/jquery-bootgrid.git"
     },
     "keywords": [
         "jquery-plugin",
